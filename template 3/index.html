@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PN Junction Diode Virtual Lab - Interactive Tour</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Mobile Warning Popup -->
+    <div class="mobile-warning-overlay" id="mobileWarningOverlay">
+        <div class="mobile-warning-popup">
+            <div class="mobile-warning-icon">
+                <i class="fas fa-mobile-alt"></i>
+            </div>
+            <h3>Desktop Experience Recommended</h3>
+            <p>This virtual laboratory is optimized for desktop viewing to provide the best interactive experience with all features and visualizations.</p>
+            <div class="mobile-warning-features">
+                <div class="warning-feature">
+                    <i class="fas fa-times-circle"></i>
+                    <span>Guided tour will be disabled</span>
+                </div>
+                <div class="warning-feature">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span>Some interactive elements may be limited</span>
+                </div>
+                <div class="warning-feature">
+                    <i class="fas fa-eye"></i>
+                    <span>Visualizations may not display optimally</span>
+                </div>
+            </div>
+            <p class="mobile-warning-recommendation">
+                For the best experience, please access this lab on a desktop or laptop computer.
+            </p>
+            <button class="mobile-warning-btn" onclick="closeMobileWarning()">
+                <i class="fas fa-check"></i>
+                Continue Anyway
+            </button>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <div class="experiment-tabs">
+            <button class="tab active" onclick="switchTab(this, 'equilibrium')">Equilibrium State</button>
+            <button class="tab" onclick="switchTab(this, 'biasing')">Biasing Effects</button>
+            <button class="tab" onclick="switchTab(this, 'challenges')">Challenges</button>
+        </div>
+
+        <!-- Equilibrium State Experiment -->
+        <div id="equilibrium" class="experiment-content active">
+            <div class="main-content">
+                <div class="visualization-area">
+                    <h3>PN Junction Cross-Section</h3>
+                    <div class="diode-visualization" id="equilibriumVisualization">
+                        <div class="p-region">P-Type&nbspHoles (+)</div>
+                        <div class="n-region">N-Type&nbspElectrons (-)</div>
+                        <div class="depletion-region" id="depletionRegion"></div>
+                        <div class="charge-indicators" id="chargeIndicators"></div>
+                        <div class="electric-field" id="electricField"></div>
+                        
+                        <!-- Legend -->
+                        <div class="diagram-legend">
+                            <div class="legend-item">
+                                <div class="legend-icon depletion-icon"></div>
+                                <span class="legend-text">Depletion Region</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-icon field-icon">
+                                    <div class="field-arrow"></div>
+                                </div>
+                                <span class="legend-text">Electric Field →</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="text-align: center; margin-top: 15px; color: #6b7280;">
+                        <small>Depletion region width varies with doping concentration and temperature</small>
+                    </div>
+                    
+                    <div class="measurements-section">
+                        <h3>Measurements</h3>
+                        <div class="measurement-grid">
+                            <div class="measurement-item">
+                                <div class="measurement-label">Built-in Potential</div>
+                                <div class="measurement-value" id="builtInPotential">0.65 V</div>
+                            </div>
+                            <div class="measurement-item">
+                                <div class="measurement-label">Depletion Width</div>
+                                <div class="measurement-value" id="depletionWidth">0.35 μm</div>
+                            </div>
+                            <div class="measurement-item">
+                                <div class="measurement-label">Max Electric Field</div>
+                                <div class="measurement-value" id="maxElectricField">1.85 V/μm</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="controls-panel">
+                    <h3>Parameters</h3>
+                    
+                    <!-- Preset Buttons Section -->
+                    <div class="preset-section">
+                        <h4>Quick Presets</h4>
+                        <div class="preset-grid">
+                            <button class="btn btn-preset" onclick="applyEquilibriumPreset('balanced')">
+                                <i class="fas fa-balance-scale"></i> Balanced
+                            </button>
+                            <button class="btn btn-preset" onclick="applyEquilibriumPreset('p_heavy')">
+                                <i class="fas fa-plus"></i> P+ Heavy
+                            </button>
+                            <button class="btn btn-preset" onclick="applyEquilibriumPreset('n_heavy')">
+                                <i class="fas fa-minus"></i> N+ Heavy
+                            </button>
+                            <button class="btn btn-preset" onclick="applyEquilibriumPreset('light_doped')">
+                                <i class="fas fa-feather"></i> Light Doped
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="control-group">
+                        <label class="control-label">
+                            P-Type Doping (cm⁻³)
+                            <span class="info-tooltip">ℹ️
+                                <span class="tooltip-text">Acceptor concentration in P-region. Higher doping increases conductivity and affects depletion width.</span>
+                            </span>
+                        </label>
+                        <input type="range" class="slider" id="pDoping" min="14" max="18" step="0.1" value="16">
+                        <span id="pDopingValue">10¹⁶ cm⁻³</span>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label">
+                            N-Type Doping (cm⁻³)
+                            <span class="info-tooltip">ℹ️
+                                <span class="tooltip-text">Donor concentration in N-region. Affects the asymmetry of the depletion region.</span>
+                            </span>
+                        </label>
+                        <input type="range" class="slider" id="nDoping" min="14" max="18" step="0.1" value="16">
+                        <span id="nDopingValue">10¹⁶ cm⁻³</span>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label">
+                            Temperature (K)
+                            <span class="info-tooltip">ℹ️
+                                <span class="tooltip-text">Temperature affects intrinsic carrier concentration and built-in potential.</span>
+                            </span>
+                        </label>
+                        <input type="range" class="slider" id="temperature" min="250" max="400" step="5" value="300">
+                        <span id="temperatureValue">300 K</span>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label">Material</label>
+                        <select class="control-input" id="material">
+                            <option value="si">Silicon (Si)</option>
+                            <option value="ge">Germanium (Ge)</option>
+                            <option value="gaas">Gallium Arsenide (GaAs)</option>
+                        </select>
+                    </div>
+
+                    <button class="btn btn-primary" onclick="resetEquilibrium()">Reset</button>
+                </div>
+            </div>
+
+            <div class="alert alert-info">
+                <strong>Equilibrium State:</strong> Study the PN junction at thermal equilibrium without external bias. Observe charge distribution, depletion region, and built-in electric field.
+            </div>
+        </div>
+
+        <!-- Biasing Effects Experiment -->
+        <div id="biasing" class="experiment-content">
+            <div class="main-content">
+                <div class="visualization-area">
+                    <h3>PN Junction Under Bias</h3>
+                    <div class="diode-visualization" id="biasingVisualization">
+                        <div class="p-region">P-Type&nbsp<id="pRegionLabel">Holes (+)</div>
+                        <div class="n-region">N-Type&nbsp<id="nRegionLabel">Electrons (-)</div>
+                        <div class="depletion-region" id="biasDepletionRegion"></div>
+                        <div class="charge-indicators" id="biasChargeIndicators"></div>
+                        <div class="electric-field" id="biasElectricField"></div>
+                        <div class="breakdown-sparks" id="breakdownSparks"></div>
+                        <div class="breakdown-warning" id="breakdownWarning">⚠️ AVALANCHE BREAKDOWN</div>
+                        
+                        <!-- Legend -->
+                        <div class="diagram-legend">
+                            <div class="legend-item">
+                                <div class="legend-icon depletion-icon"></div>
+                                <span class="legend-text">Depletion Region</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-icon field-icon">
+                                    <div class="field-arrow"></div>
+                                </div>
+                                <span class="legend-text">Electric Field →</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="text-align: center; margin-top: 15px;">
+                        <span id="biasStatus" style="font-weight: 600; color: #1f2937;">No Bias Applied</span>
+                    </div>
+                    
+                    <div class="measurements-section">
+                        <h3>Measurements</h3>
+                        <div class="measurement-grid">
+                            <div class="measurement-item">
+                                <div class="measurement-label">Current (A)</div>
+                                <div class="measurement-value" id="diodeCurrent">0.00 A</div>
+                            </div>
+                            <div class="measurement-item">
+                                <div class="measurement-label">Voltage Drop</div>
+                                <div class="measurement-value" id="voltageDrop">0.00 V</div>
+                            </div>
+                            <div class="measurement-item">
+                                <div class="measurement-label">Depletion Width</div>
+                                <div class="measurement-value" id="biasDepletionWidth">0.35 μm</div>
+                            </div>
+                            <div class="measurement-item">
+                                <div class="measurement-label">Power Dissipation</div>
+                                <div class="measurement-value" id="powerDissipation">0.00 W</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="controls-panel">
+                    <h3>Bias Control</h3>
+                    
+                    <!-- Preset Buttons Section -->
+                    <div class="preset-section">
+                        <h4>Quick Presets</h4>
+                        <div class="preset-grid">
+                            <button class="btn btn-preset" onclick="applyPreset('equilibrium')">
+                                <i class="fas fa-balance-scale"></i> Equilibrium
+                            </button>
+                            <button class="btn btn-preset" onclick="applyPreset('forward_low')">
+                                <i class="fas fa-arrow-right"></i> Low Forward
+                            </button>
+                            <button class="btn btn-preset" onclick="applyPreset('forward_high')">
+                                <i class="fas fa-arrow-up"></i> High Forward
+                            </button>
+                            <button class="btn btn-preset" onclick="applyPreset('reverse_low')">
+                                <i class="fas fa-arrow-left"></i> Low Reverse
+                            </button>
+                            <button class="btn btn-preset" onclick="applyPreset('reverse_high')">
+                                <i class="fas fa-arrow-down"></i> High Reverse
+                            </button>
+                            <button class="btn btn-preset breakdown" onclick="applyPreset('breakdown')">
+                                <i class="fas fa-bolt"></i> Breakdown
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="control-group">
+                        <label class="control-label">
+                            Applied Voltage (V)
+                            <span class="info-tooltip">ℹ️
+                                <span class="tooltip-text">Positive voltage: Forward bias (P positive, N negative). Negative voltage: Reverse bias.</span>
+                            </span>
+                        </label>
+                        <input type="range" class="slider" id="biasVoltage" min="-5" max="1" step="0.1" value="0">
+                        <span id="biasVoltageValue">0.0 V</span>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label">P-Type Doping (cm⁻³)</label>
+                        <input type="range" class="slider" id="biasPDoping" min="14" max="18" step="0.1" value="16">
+                        <span id="biasPDopingValue">10¹⁶ cm⁻³</span>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label">N-Type Doping (cm⁻³)</label>
+                        <input type="range" class="slider" id="biasNDoping" min="14" max="18" step="0.1" value="16">
+                        <span id="biasNDopingValue">10¹⁶ cm⁻³</span>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label">Temperature (K)</label>
+                        <input type="range" class="slider" id="biasTemperature" min="250" max="400" step="5" value="300">
+                        <span id="biasTemperatureValue">300 K</span>
+                    </div>
+
+                    <button class="btn btn-primary" onclick="resetBiasing()">Reset</button>
+                </div>
+            </div>
+
+            <div class="alert alert-warning">
+                <strong>Biasing Effects:</strong> Apply forward or reverse bias to observe changes in depletion region, electric field, and current flow.
+            </div>
+        </div>
+
+        <!-- Challenges Tab -->
+        <div id="challenges" class="experiment-content">
+            <div class="challenge-container">
+                <h2 style="text-align: center; margin-bottom: 30px; color: #1f2937;">
+                    <i class="fas fa-trophy" style="color: #f59e0b; margin-right: 10px;"></i>
+                    Knowledge Challenges
+                </h2>
+
+                <!-- Challenge Statistics -->
+                <div class="challenge-stats">
+                    <div class="stat-item">
+                        <div class="stat-value" id="totalChallenges">5</div>
+                        <div class="stat-label">Total Challenges</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="completedChallenges">0</div>
+                        <div class="stat-label">Completed</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="challengeScore">0</div>
+                        <div class="stat-label">Score</div>
+                    </div>
+                </div>
+
+                <!-- Progress Bar -->
+                <div class="challenge-progress">
+                    <div class="challenge-progress-bar" id="overallProgress" style="width: 0%;"></div>
+                </div>
+
+                <!-- Reset Button for New Questions -->
+                <div style="text-align: center; margin-bottom: 30px;">
+                    <button class="challenge-btn challenge-btn-primary" onclick="resetAllChallenges()" style="font-size: 1rem; padding: 12px 30px;">
+                        <i class="fas fa-refresh"></i> Reset Questions
+                    </button>
+                    <p style="color: #6b7280; font-size: 0.9rem; margin-top: 8px;">
+                        Click to reset all challenges with different questions from the question bank
+                    </p>
+                </div>
+
+                <!-- Challenge 1: Multiple Choice Quiz -->
+                <div class="challenge-section" id="challenge1">
+                    <div class="challenge-header">
+                        <div class="challenge-icon">🧠</div>
+                        <div>
+                            <h3 class="challenge-title">Rapid Fire Quiz</h3>
+                            <p class="challenge-description">Test your understanding of PN junction fundamentals with these quick questions!</p>
+                        </div>
+                    </div>
+
+                    <div class="challenge-controls">
+                        <button class="challenge-btn challenge-btn-primary" onclick="checkQuizAnswers(1)">Check Answers</button>
+                        <button class="challenge-btn challenge-btn-secondary" onclick="resetChallenge(1)">Reset</button>
+                        <button class="challenge-btn challenge-btn-secondary" onclick="showQuizHints(1)">Show Hints</button>
+                    </div>
+
+                    <div class="challenge-feedback" id="challenge1-feedback"></div>
+                    <div class="challenge-hint" id="challenge1-hint"></div>
+                </div>
+
+                <!-- Challenge 2: Fill in the Blanks -->
+                <div class="challenge-section" id="challenge2">
+                    <div class="challenge-header">
+                        <div class="challenge-icon">📝</div>
+                        <div>
+                            <h3 class="challenge-title">Fill in the Blanks</h3>
+                            <p class="challenge-description">Complete these sentences about PN junction physics!</p>
+                        </div>
+                    </div>
+
+                    <div class="challenge-controls">
+                        <button class="challenge-btn challenge-btn-primary" onclick="checkFillBlanks()">Check Answers</button>
+                        <button class="challenge-btn challenge-btn-secondary" onclick="resetChallenge(2)">Reset</button>
+                        <button class="challenge-btn challenge-btn-secondary" onclick="showFillBlanksHint()">Hint</button>
+                    </div>
+
+                    <div class="challenge-feedback" id="challenge2-feedback"></div>
+                </div>
+
+                <!-- Challenge 3: Matching Exercise -->
+                <div class="challenge-section" id="challenge3">
+                    <div class="challenge-header">
+                        <div class="challenge-icon">🔗</div>
+                        <div>
+                            <h3 class="challenge-title">Match the Following</h3>
+                            <p class="challenge-description">Match the terms with their correct definitions!</p>
+                        </div>
+                    </div>
+
+                    <div class="matching-container">
+                        <div class="matching-column">
+                            <h4 style="text-align: center; margin-bottom: 15px; color: #1f2937;">Terms</h4>
+                            <div class="matching-item" data-id="depletion" onclick="selectMatchingItem(this)">
+                                Depletion Region
+                            </div>
+                            <div class="matching-item" data-id="forward" onclick="selectMatchingItem(this)">
+                                Forward Bias
+                            </div>
+                            <div class="matching-item" data-id="breakdown" onclick="selectMatchingItem(this)">
+                                Avalanche Breakdown
+                            </div>
+                            <div class="matching-item" data-id="builtin" onclick="selectMatchingItem(this)">
+                                Built-in Potential
+                            </div>
+                        </div>
+
+                        <div class="matching-connections" id="matchingConnections">
+                            <!-- Connection lines will be drawn here -->
+                        </div>
+
+                        <div class="matching-column">
+                            <h4 style="text-align: center; margin-bottom: 15px; color: #1f2937;">Definitions</h4>
+                            <div class="matching-item" data-id="def-depletion" onclick="selectMatchingItem(this)">
+                                Area depleted of mobile carriers
+                            </div>
+                            <div class="matching-item" data-id="def-forward" onclick="selectMatchingItem(this)">
+                                P-region positive, N-region negative
+                            </div>
+                            <div class="matching-item" data-id="def-breakdown" onclick="selectMatchingItem(this)">
+                                Rapid current increase under high reverse voltage
+                            </div>
+                            <div class="matching-item" data-id="def-builtin" onclick="selectMatchingItem(this)">
+                                Voltage barrier at thermal equilibrium
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="challenge-controls">
+                        <button class="challenge-btn challenge-btn-primary" onclick="checkMatching()">Check Matches</button>
+                        <button class="challenge-btn challenge-btn-secondary" onclick="resetChallenge(3)">Reset</button>
+                        <button class="challenge-btn challenge-btn-secondary" onclick="showMatchingHints()">Show Hints</button>
+                    </div>
+
+                    <div class="challenge-feedback" id="challenge3-feedback"></div>
+                    <div class="detailed-hint" id="challenge3-hint"></div>
+                </div>
+
+                <!-- Challenge 4: Advanced Multiple Choice -->
+                <div class="challenge-section" id="challenge4">
+                    <div class="challenge-header">
+                        <div class="challenge-icon">🎯</div>
+                        <div>
+                            <h3 class="challenge-title">Advanced Concepts</h3>
+                            <p class="challenge-description">Test your deeper understanding of semiconductor physics!</p>
+                        </div>
+                    </div>
+
+                    <div class="challenge-controls">
+                        <button class="challenge-btn challenge-btn-primary" onclick="checkAdvancedAnswers()">Check Answers</button>
+                        <button class="challenge-btn challenge-btn-secondary" onclick="resetChallenge(4)">Reset</button>
+                        <button class="challenge-btn challenge-btn-secondary" onclick="showAdvancedHints()">Show Hints</button>
+                    </div>
+
+                    <div class="challenge-feedback" id="challenge4-feedback"></div>
+                    <div class="detailed-hint" id="challenge4-hint"></div>
+                </div>
+
+                <!-- Challenge 5: Calculation Challenge -->
+                <div class="challenge-section" id="challenge5">
+                    <div class="challenge-header">
+                        <div class="challenge-icon">🧮</div>
+                        <div>
+                            <h3 class="challenge-title">Calculation Challenge</h3>
+                            <p class="challenge-description">Apply the physics equations to solve these numerical problems!</p>
+                        </div>
+                    </div>
+
+                    <div class="challenge-controls">
+                        <button class="challenge-btn challenge-btn-primary" onclick="checkCalculations()">Check Answers</button>
+                        <button class="challenge-btn challenge-btn-secondary" onclick="resetChallenge(5)">Reset</button>
+                        <button class="challenge-btn challenge-btn-secondary" onclick="showCalculationHint()">Show Formula</button>
+                    </div>
+
+                    <div class="challenge-feedback" id="challenge5-feedback"></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Buttons -->
+    <div class="floating-button tour" id="tourButton" onclick="startGuidedTour()">
+        <i class="fas fa-route"></i>
+    </div>
+
+    <div class="floating-button primary" onclick="toggleHelp()">
+        <i class="fas fa-question"></i>
+    </div>
+
+    <!-- Tour Elements -->
+    <div class="tour-overlay" id="tourOverlay">
+        <div class="tour-spotlight" id="tourSpotlight"></div>
+        <div class="tour-spotlight-secondary" id="tourSpotlightSecondary" style="display: none;"></div>
+    </div>
+
+    <div class="tour-popup" id="tourPopup">
+        <div class="tour-header">
+            <div class="tour-step-number" id="tourStepNumber">1</div>
+            <h3 class="tour-title" id="tourTitle">Welcome!</h3>
+        </div>
+        <div class="tour-progress">
+            <div class="tour-progress-bar" id="tourProgressBar"></div>
+        </div>
+        <div class="tour-content" id="tourContent">
+            Let's start exploring the fascinating world of PN junctions!
+        </div>
+        <div id="tourChallenge"></div>
+        <div class="tour-controls">
+            <button class="tour-btn tour-btn-secondary" id="tourPrevBtn" onclick="prevTourStep()">Previous</button>
+            <div>
+                <button class="tour-btn tour-btn-secondary" id="tourSkipBtn" onclick="skipTour()">Skip Walkthrough</button>
+                <button class="tour-btn tour-btn-primary" id="tourNextBtn" onclick="nextTourStep()">Next</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="tour-score" id="tourScore">
+        <div class="tour-score-title">🏆 Your Progress</div>
+        <div class="tour-score-item">
+            <span>Steps Completed:</span>
+            <span id="stepsCompleted">0/12</span>
+        </div>
+        <div class="tour-score-item">
+            <span>Challenges Solved:</span>
+            <span id="challengesSolved">0/6</span>
+        </div>
+        <div class="tour-score-item">
+            <span>Score:</span>
+            <span id="totalScore">0</span>
+        </div>
+    </div>
+
+    <div class="tour-achievements" id="tourAchievements">
+        <div class="achievement-icon">🎉</div>
+        <div class="achievement-title" id="achievementTitle">Achievement Unlocked!</div>
+        <div class="achievement-description" id="achievementDescription">You've mastered a new concept!</div>
+        <button class="tour-btn tour-btn-primary" onclick="closeAchievement()">Continue</button>
+    </div>
+
+    <!-- Help Panel -->
+    <div class="floating-panel" id="helpPanel">
+        <div class="floating-panel-header">
+            <h3 class="panel-title">Help & Information</h3>
+            <div class="floating-panel-close" onclick="toggleHelp()">
+                <i class="fas fa-times"></i>
+            </div>
+        </div>
+        <div class="floating-panel-content">
+            <h4>Quick Guide:</h4>
+            <p><strong>Equilibrium:</strong> Study basic PN junction properties at thermal equilibrium.</p>
+            <p><strong>Biasing:</strong> Apply forward/reverse bias to observe dynamic behavior.</p>
+            <p><strong>Challenges:</strong> Test your knowledge with interactive exercises.</p>
+            
+            <h4>Key Concepts:</h4>
+            <p><strong>Depletion Region:</strong> Area depleted of mobile carriers</p>
+            <p><strong>Built-in Potential:</strong> Voltage barrier at equilibrium</p>
+            <p><strong>Forward Bias:</strong> P positive, N negative - allows current flow</p>
+            <p><strong>Reverse Bias:</strong> P negative, N positive - blocks current</p>
+            
+            <h4>Tour Features:</h4>
+            <p><strong>🎯 Challenges:</strong> Interactive tasks to test your understanding</p>
+            <p><strong>🏆 Achievements:</strong> Unlock badges as you progress</p>
+            <p><strong>📊 Score System:</strong> Earn points for correct answers</p>
+            <p><strong>💡 Hints:</strong> Get help when you're stuck</p>
+        </div>
+    </div>
+
+    <script>
+        // Mobile device detection
+        let isMobileDevice = false;
+        
+        function detectMobileDevice() {
+            const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+            const mobileRegex = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini|mobile/i;
+            const screenWidth = window.screen.width;
+            const screenHeight = window.screen.height;
+            
+            // Check user agent and screen size
+            isMobileDevice = mobileRegex.test(userAgent) || 
+                           (screenWidth <= 768 && screenHeight <= 1024) ||
+                           window.innerWidth <= 768;
+            
+            return isMobileDevice;
+        }
+
+        function showMobileWarning() {
+            const overlay = document.getElementById('mobileWarningOverlay');
+            if (overlay) {
+                overlay.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeMobileWarning() {
+            const overlay = document.getElementById('mobileWarningOverlay');
+            if (overlay) {
+                overlay.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        function disableGuidedTour() {
+            const tourButton = document.getElementById('tourButton');
+            if (tourButton) {
+                tourButton.style.display = 'none';
+            }
+            
+            // Disable tour-related functions
+            window.startGuidedTour = function() {
+                alert('Guided tour is not available on mobile devices. Please use a desktop for the full experience.');
+            };
+        }
+
+        // Initialize mobile detection on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            if (detectMobileDevice()) {
+                showMobileWarning();
+                disableGuidedTour();
+            }
+        });
+
+        // Re-check on window resize
+        window.addEventListener('resize', function() {
+            if (detectMobileDevice() && !isMobileDevice) {
+                isMobileDevice = true;
+                disableGuidedTour();
+            }
+        });
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>
