@@ -9,6 +9,8 @@
 
 [**Audience**](#audience)
 
+[**Disclaimer & Expectations**](#disclaimer-expectations)
+
 [**Guidelines for Creating a Virtual Lab Experiment**](#guidelines-for-creating-a-virtual-lab-experiment)
 
 [**Step 1 \- Getting Started**](#step-1---getting-started)
@@ -60,7 +62,18 @@ This guide is intended for:
 
 Whether you're just starting or need a refresher on best practices, this document outlines the procedure for setting up your environment, preparing content, and building a Virtual Lab experiment using the AI Tools, VSCode editor and the lab management tools.
 
-# 
+# Disclaimer & Expectations {#disclaimer-expectations}
+Please note: This AI-assisted workflow is a suggested process, not a guaranteed formula. Its effectiveness depends on several critical factors:
+
+* Well-written lab proposals: Clear objectives, scope, and simulation intent are essential.
+
+* Realistic expectations: Simulation complexity should align with available tools and deliverability.
+
+* Iterative refinement: Simulations may require multiple rounds of review and adjustment by both developers and SMEs.
+
+* Guidelines intended: Consider this coherent workflow a tool for acceleration—not a one-size-fits-all solution.
+
+Proceed with an open mind, ready to adapt as needed.
 
 # Guidelines for Creating a Virtual Lab Experiment {#guidelines-for-creating-a-virtual-lab-experiment}
 
