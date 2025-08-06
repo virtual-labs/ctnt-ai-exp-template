@@ -1,58 +1,14 @@
 # AI-Enhanced Virtual Experiment Creation Process
-
 *by VLEAD Team*
-
-
-[**Introduction**](#introduction)
-
-[**Motivation**](#motivation)
-
-[**Audience**](#audience)
-
-[**Disclaimer & Expectations**](#disclaimer-expectations)
-
-[**Guidelines for Creating a Virtual Lab Experiment**](#guidelines-for-creating-a-virtual-lab-experiment)
-
-[**Step 1 \- Getting Started**](#step-1---getting-started)
-
-[a. Prerequisites	](#a.-prerequisites)
-
-[b. Setup	](#b.-setup)
-
-[c. Clone the Repository	](#c.-clone-the-repository)
-
-[**Step 2 \- Creating the Simulation**](#step-2---creating-the-simulation)
-
-[a. Choosing a Starter UI Template for Your Experiment](#choosing-a-starter-ui-template-for-your-experiment)
-
-[b. Figuring out the Logic of the Experiment](#figuring-out-the-logic-of-the-experiment)
-
-[c. Debugging Experiment Logic with AI Assistance](#debugging-experiment-logic-with-ai-assistance)
-
-[d. UI Optimisation Tips for Better Usability](#ui-optimization-tips-for-better-usability)
-
-[**Step 3 \- Creating the Content**](#step-3---creating-the-content)
-
-[**Step 4 \-  Build and Test the Experiment**](#step-4---build-and-test-the-experiment)
-
-[**Guidelines to Follow**](#guidelines-to-follow-)
-
-[**Actions to Avoid**](#actions-to-avoid)
-
-[**Frequently Asked Questions**](#frequently-asked-questions)
-
-[**Conclusion**](#conclusion)
- 
-
-# Introduction {#introduction}
+## Introduction
 
 With the rapid rise of AI-powered technologies, it's both essential and exciting to harness this potential to streamline the development of Virtual Lab experiments. Tools like the Cursor, Copilot Pro, and Deepseek R1 now enable educators and developers to create interactive, standards-compliant experiments more quickly and efficiently than ever before. This guide provides a step-by-step walkthrough of the process, from setting up your system to building, testing, and refining your experiment using modern, AI-assisted tools.
 
-# Motivation {#motivation}
+## Motivation 
 
 Virtual Labs democratize access to high-quality, interactive learning experiences — especially in STEM education. However, building these labs from scratch can be resource-intensive. By integrating intelligent development environments and standardised tools, this process can be significantly accelerated, allowing teams to focus on content quality and pedagogical value rather than just infrastructure.
 
-# Audience {#audience}
+## Audience
 
 This guide is intended for:
 
@@ -61,6 +17,7 @@ This guide is intended for:
 * Institutions or teams onboarding new contributors to the Virtual Labs project.
 
 Whether you're just starting or need a refresher on best practices, this document outlines the procedure for setting up your environment, preparing content, and building a Virtual Lab experiment using the AI Tools, VSCode editor and the lab management tools.
+
 
 # Disclaimer & Expectations {#disclaimer-expectations}
 Please note: This AI-assisted workflow is a suggested process, not a guaranteed formula. Its effectiveness depends on several critical factors:
@@ -75,19 +32,17 @@ Please note: This AI-assisted workflow is a suggested process, not a guaranteed 
 
 Proceed with an open mind, ready to adapt as needed.
 
-# Guidelines for Creating a Virtual Lab Experiment {#guidelines-for-creating-a-virtual-lab-experiment}
-
-## Step 1 \- Getting Started {#step-1---getting-started}
-
+## Guidelines for Creating a Virtual Lab Experiment
+### Step 1 Getting Started 
 Before you begin developing a Virtual Lab experiment using AI tools, it's important to complete a few preparatory steps. This section ensures that you have the necessary background, approvals, and environment setup. Completing these steps will help you generate high-quality, standards-compliant experiments efficiently.
 
-### **a. Prerequisites** {#a.-prerequisites}
+#### a. Prerequisites
 
 1. Ensure you have the **proposal document** for the lab.  
 2. **Confirm with your Subject Matter Expert (SME)** the intended level of the lab/experiments — beginner, intermediate, or advanced — so you can reflect this accurately in the AI prompt.  
 3. You should be **familiar with the Virtual Labs development process** and have completed the onboarding steps as outlined [here](https://vlead.vlabs.ac.in/development/#onboarding-process).
 
-### **b. Setup** {#b.-setup}
+#### b. Setup
 
 **Download and Install VSCode**
 
@@ -109,7 +64,7 @@ Install the GitHub Copilot extension in VS Code. This will enable AI-assisted co
 
 We have used **Claude-4-sonnet** as the AI model in our CoPilot settings. However, you are free to choose the latest tested version or any other AI tool that you find appropriate or are more comfortable with.
 
-### **c. Clone the Repository** {#c.-clone-the-repository}
+#### c. Clone the Repository
 
 1. Create a Working Directory. Create a dedicated folder to store your AI Tool based experiment projects.  
 2. Clone the Experiment Repository inside your working directory, and clone the development branch of your experiment repository using the command below. Replace your-experiment-repository-link with the actual repository URL:
@@ -164,13 +119,12 @@ If you plan to add pages beyond those defined in the standard structure, include
 
    
 
-## Step 2 \- Creating the Simulation {#step-2---creating-the-simulation}
+### Step 2 Creating the Simulation
 
 In this step, you will define the visual layout of your experiment and implement its underlying logic. We encourage you to start by using the recommended responsive UI template, which provides a clean layout, floating controls, and mobile-friendly design. Next, using your lab’s proposal document, provide the experiment objective and structure to your AI assistant (like GitHub Copilot) to begin generating the required HTML and JavaScript logic. You’ll iteratively test, debug, and refine the experiment until it behaves as expected.
 
-1. ### **Choosing a Starter UI Template for Your Experiment** {#choosing-a-starter-ui-template-for-your-experiment}
-
-        First, decide on the initial UI layout for the experiment. Some good starter templates are:
+#### Choosing a Starter UI Template for Your Experiment
+First, decide on the initial UI layout for the experiment. Some good starter templates are:
 
 1) [Discrete Labs \- Recursion](https://github.com/virtual-labs/ctnt-ai-exp-template/tree/main/template%201)
 
@@ -193,27 +147,24 @@ Each template also  includes the following features:
 * A mobile detection script to see if the user is using it in a phone or in a desktop and provide the user with appropriate messages.
 
 
-2. ### **Figuring out the Logic of the Experiment** {#figuring-out-the-logic-of-the-experiment}
-
-     
+#### Figuring out the Logic of the Experiment
 * First, locate the **Lab Proposal Document**. You can search for your lab [here](https://github.com/virtual-labs/engineers-forum/issues).  
 * Next, in **Copilot**, add the `experiment.html` and `experiment.js` files to the context. Then, provide Copilot with all relevant details from the Lab Proposal Document. Based on this input, Copilot should automatically generate the experiment logic and make the necessary edits in **Agent Mode**.  
 * Run the page using **Live Server** to preview the changes and test the experiment logic. Open the browser console to check for any JavaScript errors or warnings.  
 * If errors appear, you can ask Copilot to resolve them by providing the error message along with the relevant code snippet or file in the context.  
 * Use the following **Starter Prompt** (highlighted in blue). Replace the placeholder text (highlighted in red) with the specifics of your experiment.  
-  “The content of the experiment is about \[describe the topic possibly from the Proposal\].  
-  Edit the content of the HTML and the JS template  file to accurately work for the current experiment.  
-  Make sure that whatever you do, does not break anything.  
-  No need to keep the old redundant code for the template. Feel free to remove them and optimise the space  
-  Do not change the basic structure of the HTML file.Since, I want this type of layout only  
-  Feel free to change the text in the HTML file to reflect correctly for the current experiment  
-  Do not change the existing CSS  
-  \<OPTIONAL\>  
-  I have also given you some code below to help you with the task.  
-  \[The Existing Code\]  
-  "
+  <span style="color: blue;">The content of the experiment is about</span> <span style="color: red;">[describe the topic possibly from the Proposal]</span>.  
+  <span style="color: blue;">Edit the content of the HTML and the JS template  file to accurately work for the current experiment.</span>  
+  <span style="color: blue;">Make sure that whatever you do, does not break anything.</span>  
+  <span style="color: blue;">No need to keep the old redundant code for the template. Feel free to remove them and optimise the space</span>  
+  <span style="color: blue;">Do not change the basic structure of the HTML file.Since, I want this type of layout only.</span>  
+ <span style="color: blue;">Feel free to change the text in the HTML file to reflect correctly for the current experiment</span>  
+ <span style="color: blue;">Do not change the existing CSS </span> <br>
+    <span style="color: red;">OPTIONAL</span>  
+  <span style="color: blue;">I have also given you some code below to help you with the task.</span>  
+  <span style="color: red;">The Existing Code </span>
 
-3. ### **Debugging Experiment Logic with AI Assistance** {#debugging-experiment-logic-with-ai-assistance}
+#### Debugging Experiment Logic with AI Assistance
 
 * Start by checking the **console** for any errors or warnings.  
 * If the experiment logic isn't working as expected even after a few attempts, try **manually debugging** the code using `console.log` statements. This will help you trace the code execution and inspect variable values at different points.  
@@ -221,60 +172,60 @@ Each template also  includes the following features:
 * With a bit of time and effort, you should be able to get the experiment logic working as intended.
 
 
-4. ### **UI Optimization Tips for Better Usability** {#ui-optimization-tips-for-better-usability}
+#### UI Optimization Tips for Better Usability
 
 * Use **floating buttons** to hide controls that are only needed during the initial setup of the experiment. This helps declutter the interface and improves user experience.  
 * Consider adding a **compact instructions panel** accessible via a floating button that can be toggled on or off. This allows users to refer to guidance without crowding the main interface and if at all you need the controls at all times of the experiment (better to move it to one side) make sure that no scrolling is required by the user to view the whole page.  
 * If the experiment is not fully optimized for mobile devices, consider adding a **JavaScript script (like** [this](https://github.com/virtual-labs/ctnt-ai-exp-template/blob/main/mobile-detection.js)**)**   to notify users  how to enhance responsiveness and usability on smaller screens.
 
-## **Step 3 \- Creating the Content** {#step-3---creating-the-content}
+### Step 3 Creating the Content
 
 Next, you will generate the content for your experiment using an AI tool. We recommend starting with the **standard prompt** provided below (highlighted in blue). While we have tested this prompt using **Cursor**, you are free to use any AI tool you are comfortable with.
 
 To proceed:
 
 * Replace the **placeholder text** in the prompt (highlighted in red) with details specific to your experiment.  
-* Set the entire `experiment` folder as the **context** for your AI tool to ensure consistent and structured output.  
+* Set the entire **experiment** folder as the **context** for your AI tool to ensure consistent and structured output.  
 * Feel free to **customize the prompt** based on your specific requirements.
 
 **Experiment Content Structure**
 
-**Required `.md` Files:**
+**Required .md Files:**
 
-* `aim.md`  
-  * `theory.md`  
-  * `procedure.md`  
-  * `references.md`  
-  * `contributors.md`
+  * aim.md  
+  * theory.md 
+  * procedure.md  
+  * references.md  
+  * contributors.md
 
-* **Required `.json` Files:**  
-  * `pretest.json`  
-  * `posttest.json`
+* **Required .json Files:**  
+  * pretest.json
+  * posttest.json
 
-* **Optional empty `.md` Files to be added  (if needed):**   
-  * `troubleshooting.md`  
-  * `glossary.md`  
-  * `trivia.md`  
-  * `extended-study.md`  
-  * `assessment.md`
+* **Optional empty .md Files to be added  (if needed):**   
+  * troubleshooting.md
+  * glossary.md  
+  * trivia.md  
+  * extended-study.md  
+  * assessment.md
 
 **Sample Prompt**
 
-You are an expert in creating content for the experiments for Virtual Labs.   
+<p style="color:blue;">You are an expert in creating content for the experiments for Virtual Labs.   
 I have a sample experiment that I want to convert into a Virtual Lab experiment. Modify the current markdown & json files to create the textual/visual content of the experiment  
-Refer to the README file located in the ‘experiment’ folder for creating content.
-
-1. aim.md, objective.md, and theory.md need to be filled up with the respective content. Modify their content as per the page type in the context of the experiment name  \- \<your-experiment-name\> for the lab \- \<lab-name\>. Be sure these changes are in sync with the simulation we just implemented. Use images, graphs etc to support your content, if needed.  
-2. Modify procedure.md as per the simulation changes just been implemented.   
-3. Provide suitable references like books, educational material, video links, publications, articles, in references.md.  
-4. The quiz pages- pretest.json and posttest.json follow a certain format and logic. Without changing the format, update the questions, answers, along with their respective explanations. The questions are of 3 difficulty levels- beginner, intermediate, and advanced. Note that the content should be consistent with the experiment. Ensure questions are relevant, well-worded, and aligned with the learning objectives of the experiment.  
-5. For contributors.md, fill in the following details in the format given in the file. Do not create a new format.  
-   1. \<Subject matter expert’s details\>  
-   2. \<Developer’s details\>
+Refer to the README file located in the ‘experiment’ folder for creating content.</p>
+<ol style="color:blue;">
+<li>aim.md, objective.md, and theory.md need to be filled up with the respective content. Modify their content as per the page type in the context of the experiment name  <span style="color:red;">your-experiment-name</span> for the lab <span style="color:red;">lab-name.</span> Be sure these changes are in sync with the simulation we just implemented. Use images, graphs etc to support your content, if needed.</li>
+<li>Modify procedure.md as per the simulation changes just been implemented.</li>   
+<li>Provide suitable references like books, educational material, video links, publications, articles, in references.md.</li>  
+<li>The quiz pages- pretest.json and posttest.json follow a certain format and logic. Without changing the format, update the questions, answers, along with their respective explanations. The questions are of 3 difficulty levels- beginner, intermediate, and advanced. Note that the content should be consistent with the experiment. Ensure questions are relevant, well-worded, and aligned with the learning objectives of the experiment.</li>  
+<li> For contributors.md, fill in the following details in the format given in the file. Do not create a new format.</li>  
+   <ol><li><span style="color:red;">Subject matter expert’s details</span></li>
+   <li><span style="color:red;">Developer’s details</span></li></ol></ol>
 
 Do not create any new files or folders. Only edit the existing files.
 
-## **Step 4 \-  Build and Test the Experiment** {#step-4---build-and-test-the-experiment}
+### Step 4 Build and Test the Experiment
 
 Once your experiment content is ready and structured, the next step is to build and test it using the Virtual Labs build process. This ensures your experiment renders correctly, passes validation checks, and is ready for deployment. This step also allows you to preview the experiment locally and make iterative improvements as needed.
 
@@ -313,7 +264,7 @@ Open the URL in **incognito mode** to verify that recent changes are reflected.
 
 ---
 
-# Guidelines to Follow  {#guidelines-to-follow-}
+## Guidelines to Follow
 
 1. Complete one full experiment—starting with the simulation—and get explicit SME approval on scope, UI/UX, layout, and content **before** beginning work on any other experiments.   
 2. You might want to format the references page using the "Reference Page" section from [this experiment](https://virtual-labs.github.io/exp-word-analysis-iiith/references.html) as a guide.  
@@ -321,7 +272,7 @@ Open the URL in **incognito mode** to verify that recent changes are reflected.
 4. Refer to the [latest Cursor documentation](https://docs.google.com/document/d/1ih8I4oFB0lucWagXKkyZcmSSx2K4K_ukrfzGtgzAiCU/edit?usp=drive_link) to ensure you're using the tool effectively and taking advantage of the latest features.  
 5. Follow the naming convention for repositories: `exp-short-name-institute-name`. This is defined during [onboarding](https://vlead.vlabs.ac.in/development/#onboarding-process). If the convention is not followed, the build ( Step 4\) will fail.
 
-# Actions to Avoid {#actions-to-avoid}
+## Actions to Avoid
 
 1. Do not rename or add new file types or folders beyond the standard Virtual Labs experiment structure described in Step 1\. Only update the existing .md and .json files—**except** for optional additions like Troubleshooting, Glossary, and Assessment pages, which are permitted if you update the relevant prompts and reflect them in the experiment-descriptor.json file.  
 2. Do not push the build directory to the repository. Use a .gitignore file to prevent accidental commits of unnecessary files.  
@@ -329,7 +280,7 @@ Open the URL in **incognito mode** to verify that recent changes are reflected.
 4. Do not forget to validate JSON files before committing. Use tools like [JSONLint](https://jsonlint.com/) to ensure proper formatting.  
 5. Do not deviate from the structure and style of your first experiment. Use it as a template for all subsequent experiments to ensure consistency and save time.
 
-# Frequently Asked Questions {#frequently-asked-questions}
+## Frequently Asked Questions
 
 1. **How much time should it take to build a basic simulation for an experiment?**  
    If the simulation design is well thought out in advance, building the simulation should take only **3 to 6 hours**, especially when using AI tools like CoPilot.  
@@ -357,6 +308,6 @@ Open the URL in **incognito mode** to verify that recent changes are reflected.
 6. **Where can I get support if I have questions?**  
    For any queries, you can reach out to the VLEAD team at support@vlabs.ac.in.
 
-# Conclusion {#conclusion}
+## Conclusion
 
 By following the steps outlined in this document, you’ll be well-positioned to create a Virtual Lab experiment that is structured, maintainable, and aligned with Virtual Labs' quality benchmarks. Leveraging the power of AI-based tools like CoPilot & Cursor can significantly accelerate the development process and provide a strong starting point. However, it's important to recognize that AI-generated content is not flawless. These tools are still evolving and may produce hallucinations or inaccuracies. As such, human expertise remains critical. Subject matter experts and developers must thoroughly review the generated content, refine it with additional and more precise prompts, and validate it against learning objectives. Iterative testing and enrichment will ensure that the final experiment is not only technically sound but also pedagogically effective and accurate. In short, use AI to boost productivity — but rely on expert insight to ensure quality.
