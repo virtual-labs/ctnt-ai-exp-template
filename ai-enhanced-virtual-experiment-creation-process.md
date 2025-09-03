@@ -38,7 +38,7 @@ Before you begin developing a Virtual Lab experiment using AI tools, it's import
 
 #### a. Prerequisites
 
-1. Ensure you have the **proposal document** for the lab.  
+1. Ensure you have a detailed well written **proposal document** for the lab in the [format](https://drive.google.com/file/d/12UPF3CY-Ow6Xh7QoQgfMdQ73IQLqPTna/view?usp=drive_link) typically followed by IIITH faculty. 
 2. **Confirm with your Subject Matter Expert (SME)** the intended level of the lab/experiments — beginner, intermediate, or advanced — so you can reflect this accurately in the AI prompt.  
 3. You should be **familiar with the Virtual Labs development process** and have completed the onboarding steps as outlined [here](https://vlead.vlabs.ac.in/development/#onboarding-process).
 
